@@ -36,6 +36,7 @@ export class OrgChart {
             setActiveNodeCentered: true,
             expandLevel: 1,
             compact: true,
+            linksIsCurved: true,
             rootMargin: 40,
             nodeDefaultBackground: 'none',
             connections: [],
@@ -1065,10 +1066,10 @@ export class OrgChart {
                   L ${x} ${my}
                   L ${x} ${y}
                   L ${x} ${y + h * yrvs}
-                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
+                  L  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
             } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
                   L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
+                  L  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
             } ${ex} ${ey - h * yrvs}
                   L ${ex} ${ey}
        `;
