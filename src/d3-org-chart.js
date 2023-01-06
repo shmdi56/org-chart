@@ -487,6 +487,12 @@ export class OrgChart {
         return this;
     }
 
+    setLinkDrawingMode(linksIsCurved) {
+        const attrs = this.getChartState();
+        attrs.linksIsCurved = linksIsCurved;
+        return this;
+    }
+
     // This function can be invoked via chart.addNode API, and it adds node in tree at runtime
     addNode(obj) {
         const attrs = this.getChartState();
@@ -1024,7 +1030,8 @@ export class OrgChart {
         let w = Math.abs(ex - x) / 2 - r;
 
         // Build and return custom arc command
-        return `
+        if (linksIsCurved) {
+            return `
                   M ${mx} ${my}
                   L ${mx} ${y}
                   L ${x} ${y}
@@ -1034,6 +1041,21 @@ export class OrgChart {
                     ${x + w * xrvs + r * xrvs} ${y + r * yrvs}
                   L ${x + w * xrvs + r * xrvs} ${ey - r * yrvs} 
                   C ${x + w * xrvs + r * xrvs}  ${ey} 
+                    ${x + w * xrvs + r * xrvs}  ${ey} 
+                    ${ex - w * xrvs}  ${ey}
+                  L ${ex} ${ey}
+       `;
+        }
+        return `
+                  M ${mx} ${my}
+                  L ${mx} ${y}
+                  L ${x} ${y}
+                  L ${x + w * xrvs} ${y}
+                  L ${x + w * xrvs + r * xrvs} ${y} 
+                    ${x + w * xrvs + r * xrvs} ${y} 
+                    ${x + w * xrvs + r * xrvs} ${y + r * yrvs}
+                  L ${x + w * xrvs + r * xrvs} ${ey - r * yrvs} 
+                  L ${x + w * xrvs + r * xrvs}  ${ey} 
                     ${x + w * xrvs + r * xrvs}  ${ey} 
                     ${ex - w * xrvs}  ${ey}
                   L ${ex} ${ey}
@@ -1061,6 +1083,21 @@ export class OrgChart {
         let h = Math.abs(ey - y) / 2 - r;
         let w = Math.abs(ex - x) - r * 2;
         //w=0;
+        if (linksIsCurved) {
+            const path = `
+                  M ${mx} ${my}
+                  L ${x} ${my}
+                  L ${x} ${y}
+                  L ${x} ${y + h * yrvs}
+                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
+            } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
+                  L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs}
+                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
+            } ${ex} ${ey - h * yrvs}
+                  L ${ex} ${ey}
+       `;
+        return path;
+        }
         const path = `
                   M ${mx} ${my}
                   L ${x} ${my}
