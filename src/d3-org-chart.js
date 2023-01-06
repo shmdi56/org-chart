@@ -36,7 +36,6 @@ export class OrgChart {
             setActiveNodeCentered: true,
             expandLevel: 1,
             compact: true,
-            linksIsCurved: true,
             rootMargin: 40,
             nodeDefaultBackground: 'none',
             connections: [],
@@ -1030,7 +1029,7 @@ export class OrgChart {
         let w = Math.abs(ex - x) / 2 - r;
 
         // Build and return custom arc command
-        if (linksIsCurved) {
+        if (setActiveNodeCentered) {
             return `
                   M ${mx} ${my}
                   L ${mx} ${y}
@@ -1083,7 +1082,7 @@ export class OrgChart {
         let h = Math.abs(ey - y) / 2 - r;
         let w = Math.abs(ex - x) - r * 2;
         //w=0;
-        if (linksIsCurved) {
+        if (setActiveNodeCentered) {
             const path = `
                   M ${mx} ${my}
                   L ${x} ${my}
