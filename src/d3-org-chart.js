@@ -1029,22 +1029,7 @@ export class OrgChart {
         let w = Math.abs(ex - x) / 2 - r;
 
         // Build and return custom arc command
-        if (setActiveNodeCentered) {
-            return `
-                  M ${mx} ${my}
-                  L ${mx} ${y}
-                  L ${x} ${y}
-                  L ${x + w * xrvs} ${y}
-                  C ${x + w * xrvs + r * xrvs} ${y} 
-                    ${x + w * xrvs + r * xrvs} ${y} 
-                    ${x + w * xrvs + r * xrvs} ${y + r * yrvs}
-                  L ${x + w * xrvs + r * xrvs} ${ey - r * yrvs} 
-                  C ${x + w * xrvs + r * xrvs}  ${ey} 
-                    ${x + w * xrvs + r * xrvs}  ${ey} 
-                    ${ex - w * xrvs}  ${ey}
-                  L ${ex} ${ey}
-       `;
-        }
+        
         return `
                   M ${mx} ${my}
                   L ${mx} ${y}
@@ -1082,21 +1067,7 @@ export class OrgChart {
         let h = Math.abs(ey - y) / 2 - r;
         let w = Math.abs(ex - x) - r * 2;
         //w=0;
-        if (setActiveNodeCentered) {
-            const path = `
-                  M ${mx} ${my}
-                  L ${x} ${my}
-                  L ${x} ${y}
-                  L ${x} ${y + h * yrvs}
-                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
-            } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
-            } ${ex} ${ey - h * yrvs}
-                  L ${ex} ${ey}
-       `;
-        return path;
-        }
+        
         const path = `
                   M ${mx} ${my}
                   L ${x} ${my}
