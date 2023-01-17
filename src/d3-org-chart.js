@@ -80,7 +80,7 @@ export class OrgChart {
             },
             nodeUpdate: function (d, i, arr) {
                 d3.select(this)
-                    .select('.node-view')
+                    .select('div')
                     // .select('.node-rect')
                     .attr("stroke", d => d.data._highlighted || d.data._upToTheRootHighlighted ? '#8b95c9' : 'none')
                     .attr("stroke-width", d.data._highlighted || d.data._upToTheRootHighlighted ? 10 : 1)
