@@ -80,10 +80,10 @@ export class OrgChart {
             },
             nodeUpdate: function (d, i, arr) {
                 d3.select(this)
-                    .select('div')
+                    .selectAll('.node-view')
                     // .select('.node-rect')
-                    .attr("stroke", d => d.data._highlighted || d.data._upToTheRootHighlighted ? '#8b95c9' : 'none')
-                    .attr("stroke-width", d.data._highlighted || d.data._upToTheRootHighlighted ? 10 : 1)
+                    .attr("stroke", d => d.data._highlighted || d.data._upToTheRootHighlighted ? '#0000' : 'none')
+                    .attr("stroke-width", d.data._highlighted || d.data._upToTheRootHighlighted ? 5 : 1)
             },
 
             nodeWidth: d3Node => 250,
