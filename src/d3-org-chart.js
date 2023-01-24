@@ -1023,9 +1023,9 @@ export class OrgChart {
 
         // Further reduce curve radius, is y space is more small
         r = Math.abs(ey - y) / 2 < r ? Math.abs(ey - y) / 2 : r;
-
+        r = 0;
         // Defin width and height of link, excluding radius
-        let h = Math.abs(ey - y) / 2 - r;
+        let h = 3 * Math.abs(ey - y) / 4 - r;
         let w = Math.abs(ex - x) / 2 - r;
         const attrs = this.getChartState();
 
