@@ -80,9 +80,9 @@ export class OrgChart {
             },
             nodeUpdate: function (d, i, arr) {
                 d3.select(this)
-                    .select('.node-rect')
-                    .attr("stroke", d => d.data._highlighted || d.data._upToTheRootHighlighted ? '#0000' : 'none')
-                    .attr("stroke-width", d.data._highlighted || d.data._upToTheRootHighlighted ? 5 : 1)
+                .select('.node-rect')
+                .attr("stroke", d => d.data._highlighted || d.data._upToTheRootHighlighted ? '#152785' : 'none')
+                .attr("stroke-width", d.data._highlighted || d.data._upToTheRootHighlighted ? 5 : 1)
             },
 
             nodeWidth: d3Node => 250,
@@ -1079,8 +1079,8 @@ export class OrgChart {
         let r = Math.abs(ex - x) / 2 < rdef ? Math.abs(ex - x) / 2 : rdef;
 
         r = Math.abs(ey - y) / 2 < r ? Math.abs(ey - y) / 2 : r;
-
-        let h = Math.abs(ey - y) / 2 - r;
+        r = 0;
+        let h = 3 * Math.abs(ey - y) / 4 - r;
         let w = Math.abs(ex - x) - r * 2;
         //w=0;
         const attrs = this.getChartState();
@@ -1104,11 +1104,9 @@ export class OrgChart {
                   L ${x} ${my}
                   L ${x} ${y}
                   L ${x} ${y + h * yrvs}
-                  L  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
-            } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  L  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
-            } ${ex} ${ey - h * yrvs}
+                  L ${x} ${y + h * yrvs + r * yrvs} 
+                  L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs} 
+                  L ${ex}  ${y + h * yrvs + r * yrvs}
                   L ${ex} ${ey}
        `;
         return path;
