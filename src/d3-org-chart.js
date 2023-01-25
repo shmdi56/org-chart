@@ -1025,7 +1025,7 @@ export class OrgChart {
         r = Math.abs(ey - y) / 2 < r ? Math.abs(ey - y) / 2 : r;
         r = 0;
         // Defin width and height of link, excluding radius
-        let h = Math.abs(ey - y) / 4 - r;
+        let h = Math.abs(ey - y) / 6 - r;
         let w = Math.abs(ex - x) / 2 - r;
         const attrs = this.getChartState();
 
@@ -1080,7 +1080,7 @@ export class OrgChart {
 
         r = Math.abs(ey - y) / 2 < r ? Math.abs(ey - y) / 2 : r;
         r = 0;
-        let h = Math.abs(ey - y) / 4 - r;
+        let h = Math.abs(ey - y) / 6 - r;
         let w = Math.abs(ex - x) - r * 2;
         //w=0;
         const attrs = this.getChartState();
