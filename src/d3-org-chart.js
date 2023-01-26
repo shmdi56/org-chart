@@ -196,7 +196,8 @@ export class OrgChart {
                         return [width + siblingsMargin, height + childrenMargin];
                     },
                     "zoomTransform": ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
-                    "diagonal": node => node.data && node.data.positionType != nodeType.REGULAR ? this.orthogonal.bind(this) : this.diagonal.bind(this),
+                    "diagonal": this.diagonal.bind(this),
+                    "ortogonal": this.orthogonal(this),
                     "swap": d => { },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x - width / 2},${y})`,
 
@@ -736,7 +737,10 @@ export class OrgChart {
                     x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
                     y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d),
                 } : n;
-                return attrs.layoutBindings[attrs.layout].diagonal(n, p, m);
+                if (d.data.positionType == nodeType.REGULAR)
+                    return attrs.layoutBindings[attrs.layout].diagonal(n, p, m);
+                else    
+                    return attrs.layoutBindings[attrs.layout].orthogonal(n, p);
             });
 
         // Remove any  links which is exiting after animation
