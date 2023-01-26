@@ -174,7 +174,7 @@ export class OrgChart {
                         reverse: arr => arr,
                     },
                     "linkX": node => node.x + (node.data.positionType == 1 ?  (node.data.right ? -node.width / 2 : +node.width / 2) : 0),
-                    "linkY": node => node.y + (node.data.positionType == 1 ? -node.height / 2 : 0),
+                    "linkY": node => node.y + (node.data.positionType == 1 ? +node.height / 2 : 0),
                     "linkParentX": node => node.parent.x,
                     "linkParentY": node => node.parent.y + node.parent.height,
                     "buttonX": node => node.width / 2,
