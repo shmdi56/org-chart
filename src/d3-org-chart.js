@@ -173,10 +173,10 @@ export class OrgChart {
                     "nodeJoinY": node => node.y + node.height,
                     "linkJoinX": node => node.x,
                     "linkJoinY": node => node.y + node.height,
-                    "linkCompactXStart": node => node.x + node.compactEven ? node.width / 2 : -node.width / 2,
+                    "linkCompactXStart": node => node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
                     "linkCompactYStart": node => node.y + node.height / 2,
-                    "compactLinkMidX": (node, state) => (node.data.positionType != nodeType.REGULAR ? node.parent.x : node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4),
-                    "compactLinkMidY": node => node.data.positionType != nodeType.REGULAR ? node.parent.y + 10 : node.firstCompactNode.y,
+                    "compactLinkMidX": (node, state) => node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
+                    "compactLinkMidY": node => node.firstCompactNode.y,
                     "compactDimension": {
                         sizeColumn: node => node.width,
                         sizeRow: node => node.height,
@@ -611,7 +611,7 @@ export class OrgChart {
         const attrs = this.getChartState();
         root.eachBefore(node => {
             if (node.children) {
-                const compactChildren = node.children.filter(d => d.flexCompactDim);
+                const compactChildren = node.children.filter(d => d.flexCompactDim && d.data.positionType == positionType.REGULAR);
                 const fch = compactChildren[0];
                 if (!fch) return;
                 compactChildren.forEach((child, i, arr) => {
@@ -740,10 +740,7 @@ export class OrgChart {
                     x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
                     y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d),
                 } : n;
-                if (d.data.positionType == nodeType.REGULAR || attrs.compact)
                     return attrs.layoutBindings[attrs.layout].diagonal(n, p, m);
-                else    
-                    return attrs.layoutBindings[attrs.layout].orthogonal(n, p);
             });
 
         // Remove any  links which is exiting after animation
