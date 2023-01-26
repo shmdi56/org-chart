@@ -737,10 +737,10 @@ export class OrgChart {
                     x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
                     y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d),
                 } : n;
-                if (d.data.positionType == nodeType.REGULAR)
+                // if (d.data.positionType == nodeType.REGULAR)
                     return attrs.layoutBindings[attrs.layout].diagonal(n, p, m);
-                else    
-                    return attrs.layoutBindings[attrs.layout].orthogonal(n, p);
+                // else    
+                //     return attrs.layoutBindings[attrs.layout].orthogonal(n, p);
             });
 
         // Remove any  links which is exiting after animation
