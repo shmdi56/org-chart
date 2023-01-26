@@ -18,6 +18,14 @@ const d3 = {
     zoomIdentity,
     linkHorizontal,
 }
+const nodeType = {
+  REGULAR: 0,
+  ASSISTANT: 1,
+  ADVISOR: 2,
+  SUB_ASSISTANT: 3,
+  SUB_ADVISOR: 4
+
+}
 export class OrgChart {
     constructor() {
         // Exposed variables 
@@ -173,8 +181,8 @@ export class OrgChart {
                         sizeRow: node => node.height,
                         reverse: arr => arr,
                     },
-                    "linkX": node => node.x + (node.data.positionType == 1 ?  (node.data.right ? -node.width / 2 : +node.width / 2) : 0),
-                    "linkY": node => node.y + (node.data.positionType == 1 ? +node.height / 2 : 0),
+                    "linkX": node => node.x + (node.data.positionType != nodeType.REGULAR ?  (node.data.right ? -node.width / 2 + 10 : +node.width / 2 - 10) : 0),
+                    "linkY": node => node.y + (node.data.positionType != nodeType.REGULAR ? +node.height / 2 : 0),
                     "linkParentX": node => node.parent.x,
                     "linkParentY": node => node.parent.y + node.parent.height,
                     "buttonX": node => node.width / 2,
@@ -188,7 +196,7 @@ export class OrgChart {
                         return [width + siblingsMargin, height + childrenMargin];
                     },
                     "zoomTransform": ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
-                    "diagonal": this.diagonal.bind(this),
+                    "diagonal": node.data.positionType != nodeType.REGULAR ? this.orthogonal.bind(this) : this.diagonal.bind(this),
                     "swap": d => { },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x - width / 2},${y})`,
 
@@ -1107,6 +1115,21 @@ export class OrgChart {
                   L ${x} ${y + h * yrvs + r * yrvs} 
                   L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs} 
                   L ${ex}  ${y + h * yrvs + r * yrvs}
+                  L ${ex} ${ey}
+       `;
+        return path;
+    }
+
+
+    // Generate custom diagonal - play with it here - https://observablehq.com/@bumbeishvili/curved-edges
+    orthogonal(s, t) {
+        const x = s.x;
+        const y = s.y;
+        const ex = t.x;
+        const ey = t.y; 
+        const path = `
+                  M ${x} ${y}
+                  L ${ex} ${y} 
                   L ${ex} ${ey}
        `;
         return path;
