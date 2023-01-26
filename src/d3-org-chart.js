@@ -160,6 +160,7 @@ export class OrgChart {
                     },
                     "zoomTransform": ({ centerY, scale }) => `translate(${0},${centerY}) scale(${scale})`,
                     "diagonal": this.hdiagonal.bind(this),
+                    "orthogonal": this.orthogonal.bind(this),
                     "swap": d => { const x = d.x; d.x = d.y; d.y = x; },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x},${y - height / 2})`,
                 },
@@ -172,10 +173,10 @@ export class OrgChart {
                     "nodeJoinY": node => node.y + node.height,
                     "linkJoinX": node => node.x,
                     "linkJoinY": node => node.y + node.height,
-                    "linkCompactXStart": node => node.x + (node.data.positionType != nodeType.REGULAR ? (node.data.right ? -node.width / 2 + 10 : +node.width / 2 - 10): (node.compactEven ? node.width / 2 : -node.width / 2)),
+                    "linkCompactXStart": node => node.x + node.compactEven ? node.width / 2 : -node.width / 2,
                     "linkCompactYStart": node => node.y + node.height / 2,
                     "compactLinkMidX": (node, state) => (node.data.positionType != nodeType.REGULAR ? node.parent.x : node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4),
-                    "compactLinkMidY": node => node.data.positionType != nodeType.REGULAR ? node.parent.y : node.firstCompactNode.y,
+                    "compactLinkMidY": node => node.data.positionType != nodeType.REGULAR ? node.parent.y + 10 : node.firstCompactNode.y,
                     "compactDimension": {
                         sizeColumn: node => node.width,
                         sizeRow: node => node.height,
@@ -236,6 +237,7 @@ export class OrgChart {
                     },
                     "zoomTransform": ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
                     "diagonal": this.diagonal.bind(this),
+                    "orthogonal": this.orthogonal.bind(this),
                     "swap": d => { d.y = -d.y; },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x - width / 2},${y - height})`,
                 },
@@ -273,6 +275,7 @@ export class OrgChart {
                     },
                     "zoomTransform": ({ centerY, scale }) => `translate(${0},${centerY}) scale(${scale})`,
                     "diagonal": this.hdiagonal.bind(this),
+                    "orthogonal": this.orthogonal.bind(this),
                     "swap": d => { const x = d.x; d.x = -d.y; d.y = x; },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x - width},${y - height / 2})`,
                 },
@@ -737,7 +740,7 @@ export class OrgChart {
                     x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
                     y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d),
                 } : n;
-                if (d.data.positionType == nodeType.REGULAR)
+                if (d.data.positionType == nodeType.REGULAR || attrs.compact)
                     return attrs.layoutBindings[attrs.layout].diagonal(n, p, m);
                 else    
                     return attrs.layoutBindings[attrs.layout].orthogonal(n, p);
