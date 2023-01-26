@@ -197,7 +197,7 @@ export class OrgChart {
                     },
                     "zoomTransform": ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
                     "diagonal": this.diagonal.bind(this),
-                    "ortogonal": this.orthogonal(this),
+                    "orthogonal": this.orthogonal(this),
                     "swap": d => { },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x - width / 2},${y})`,
 
