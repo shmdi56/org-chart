@@ -578,7 +578,7 @@ export class OrgChart {
         })
         root.eachBefore(node => {
             if (node.children && node.children.length > 1) {
-                const compactChildren = node.children.filter(d => !d.children && && d.data.positionType == nodeType.REGULAR);
+                const compactChildren = node.children.filter(d => !d.children && d.data.positionType == nodeType.REGULAR);
                 if (compactChildren.length < 2) return;
                 compactChildren.forEach((child, i) => {
                     if (!i) child.firstCompact = true;
