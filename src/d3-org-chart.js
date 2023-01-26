@@ -196,7 +196,7 @@ export class OrgChart {
                         return [width + siblingsMargin, height + childrenMargin];
                     },
                     "zoomTransform": ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
-                    "diagonal": node.data.positionType != nodeType.REGULAR ? this.orthogonal.bind(this) : this.diagonal.bind(this),
+                    "diagonal": node => node.data.positionType != nodeType.REGULAR ? this.orthogonal.bind(this) : this.diagonal.bind(this),
                     "swap": d => { },
                     "nodeUpdateTransform": ({ x, y, width, height }) => `translate(${x - width / 2},${y})`,
 
