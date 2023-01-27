@@ -101,6 +101,7 @@ export class OrgChart {
             compactMarginPair: d => 100,
             compactMarginBetween: (d3Node => 20),
             onNodeClick: (d) => d,
+            onNodeDbClick: (d) => d,
             linkGroupArc: d3.linkHorizontal().x(d => d.x).y(d => d.y),
             // ({ source, target }) => {
             //     return 
@@ -828,6 +829,12 @@ export class OrgChart {
                     return;
                 }
                 attrs.onNodeClick(attrs.nodeId(data));
+            })
+            .on("dblclick", (event, { data }) => {
+                if ([...event.srcElement.classList].includes("node-button-foreign-object")) {
+                    return;
+                }
+                attrs.onNodeDbClick(attrs.nodeId(data));
             });
 
         // Add background rectangle for the nodes
