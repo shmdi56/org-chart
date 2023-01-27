@@ -813,6 +813,7 @@ export class OrgChart {
             .data(nodes, ({ data }) => attrs.nodeId(data));
 
         // Enter any new nodes at the parent's previous position.
+        var timeout = null;
         const nodeEnter = nodesSelection
             .enter()
             .append("g")
@@ -824,18 +825,23 @@ export class OrgChart {
                 return `translate(${xj},${yj})`
             })
             .attr("cursor", "pointer")
-            .on("click", (event, { data }) => {
-                if ([...event.srcElement.classList].includes("node-button-foreign-object")) {
-                    return;
-                }
-                attrs.onNodeClick(attrs.nodeId(data));
-            })
             .on("dblclick", (event, { data }) => {
+                clearTimeout(timeout);
                 if ([...event.srcElement.classList].includes("node-button-foreign-object")) {
                     return;
                 }
                 attrs.onNodeDbClick(attrs.nodeId(data));
+            })
+            .on("click", (event, { data }) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    if ([...event.srcElement.classList].includes("node-button-foreign-object")) {
+                        return;
+                    }
+                    attrs.onNodeClick(attrs.nodeId(data));
+                  }, 300)
             });
+            
 
         // Add background rectangle for the nodes
         nodeEnter
