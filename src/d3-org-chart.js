@@ -183,8 +183,8 @@ export class OrgChart {
                         sizeRow: node => node.height,
                         reverse: arr => arr,
                     },
-                    "linkX": node => node.x + (node.data.positionType != nodeType.REGULAR ?  (node.data.right ? -node.width / 2 + 10 : +node.width / 2 - 10) : 0),
-                    "linkY": node => node.y + (node.data.positionType != nodeType.REGULAR ? +node.height / 2 : 0),
+                    "linkX": node => node.x + (node.data.positionType != nodeType.REGULAR ?  (node.data.right ? -node.width / 2 + 10 : + node.width / 2 - 10) : 0),
+                    "linkY": node => node.y + (node.data.positionType != nodeType.REGULAR ? + node.height / 2 : 0),
                     "linkParentX": node => node.parent.x,
                     "linkParentY": node => node.parent.y + node.parent.height,
                     "buttonX": node => node.width / 2,
@@ -741,7 +741,8 @@ export class OrgChart {
                     x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
                     y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d),
                 } : n;
-                    return attrs.layoutBindings[attrs.layout].diagonal(n, p, m);
+                
+                    return d.data.positionType === nodeType.REGULAR ? attrs.layoutBindings[attrs.layout].diagonal(n, p, m) : attrs.layoutBindings[attrs.layout].orthogonal(n, p);
             });
 
         // Remove any  links which is exiting after animation
