@@ -97,9 +97,9 @@ export class OrgChart {
             nodeHeight: d => 150,
             siblingsMargin: d3Node => 20,
             childrenMargin: d => 60,
-            neightbourMargin: (n1, n2) => 80,
+            neightbourMargin: (n1, n2) => 100,
             compactMarginPair: d => 100,
-            compactMarginBetween: (d3Node => 20),
+            compactMarginBetween: (d3Node => 40),
             onNodeClick: (d) => d,
             onNodeDbClick: (d) => d,
             linkGroupArc: d3.linkHorizontal().x(d => d.x).y(d => d.y),
@@ -617,8 +617,8 @@ export class OrgChart {
                 if (!fch) return;
                 compactChildren.forEach((child, i, arr) => {
                     if (i == 0) fch.x -= fch.flexCompactDim[0] / 2;
-                    if (i & i % 2 - 1) child.x = fch.x + fch.flexCompactDim[0] * 0.25 - attrs.compactMarginPair(child) / 4;
-                    else if (i) child.x = fch.x + fch.flexCompactDim[0] * 0.75 + attrs.compactMarginPair(child) / 4;
+                    if (i & i % 2 - 1) child.x = fch.x + fch.flexCompactDim[0] * 0.25 - attrs.compactMarginPair(child) / 4;  // zoj
+                    else if (i) child.x = fch.x + fch.flexCompactDim[0] * 0.75 + attrs.compactMarginPair(child) / 4;         // fard
                 })
                 const centerX = fch.x + fch.flexCompactDim[0] * 0.5;
                 fch.x = fch.x + fch.flexCompactDim[0] * 0.25 - attrs.compactMarginPair(fch) / 4;
