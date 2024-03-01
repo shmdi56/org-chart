@@ -52,6 +52,7 @@ export class OrgChart {
             parentNodeId: d => d.parentNodeId || d.parentId,
             backgroundColor: 'none',
             zoomBehavior: null,
+            enableZooming: true,
             defs: function (state, visibleConnections) {
                 return `<defs>
                     ${visibleConnections.map(conn => {
@@ -424,10 +425,12 @@ export class OrgChart {
 
          if (attrs.firstDraw) {
             svg.call(attrs.zoomBehavior)
+         }
+         svg
+            .filter(() => !attrs.enableZooming)
                 .on("dblclick.zoom", null)
-                // .on("mousewheel.zoom",null)
+                .on("mousewheel.zoom",null)
                 .attr("cursor", "move")
-        }
 
         attrs.svg = svg;
 
@@ -1347,15 +1350,15 @@ export class OrgChart {
     }
 
     zoomTreeBounds({ x0, x1, y0, y1, params = { animate: true, scale: true } }) {
-        // const { centerG, svgWidth: w, svgHeight: h, svg, zoomBehavior, duration, lastTransform } = this.getChartState()
-        // let scaleVal = Math.min(8, 0.9 / Math.max((x1 - x0) / w, (y1 - y0) / h));
-        // let identity = d3.zoomIdentity.translate(w / 2, h / 2)
-        // identity = identity.scale(params.scale ? scaleVal : lastTransform.k)
+        const { centerG, svgWidth: w, svgHeight: h, svg, zoomBehavior, duration, lastTransform } = this.getChartState()
+        let scaleVal = Math.min(8, 0.9 / Math.max((x1 - x0) / w, (y1 - y0) / h));
+        let identity = d3.zoomIdentity.translate(w / 2, h / 2)
+        identity = identity.scale(params.scale ? scaleVal : lastTransform.k)
 
-        // identity = identity.translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
-        // // Transition zoom wrapper component into specified bounds
-        // svg.transition().duration(params.animate ? duration : 0).call(zoomBehavior.transform, identity);
-        // centerG.transition().duration(params.animate ? duration : 0).attr('transform', 'translate(0,0)')
+        identity = identity.translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
+        // Transition zoom wrapper component into specified bounds
+        svg.transition().duration(params.animate ? duration : 0).call(zoomBehavior.transform, identity);
+        centerG.transition().duration(params.animate ? duration : 0).attr('transform', 'translate(0,0)')
     }
 
     fit({ animate = true, nodes, scale = true } = {}) {
