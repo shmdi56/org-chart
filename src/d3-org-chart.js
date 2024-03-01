@@ -425,7 +425,7 @@ export class OrgChart {
          if (attrs.firstDraw) {
             svg.call(attrs.zoomBehavior)
                 .on("dblclick.zoom", null)
-                .on("mousewheel.zoom",null)
+                // .on("mousewheel.zoom",null)
                 .attr("cursor", "move")
         }
 
