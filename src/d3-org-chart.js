@@ -384,8 +384,8 @@ export class OrgChart {
             };
 
             // Get zooming function
-            behaviors.zoom = d3.zoom().on("zoom", (event, d) => this.zoomed(event, d)).scaleExtent(attrs.scaleExtent)
-            attrs.zoomBehavior = behaviors.zoom;
+            // behaviors.zoom = d3.zoom().on("zoom", (event, d) => this.zoomed(event, d)).scaleExtent(attrs.scaleExtent)
+            // attrs.zoomBehavior = behaviors.zoom;
         }
 
         //****************** ROOT node work ************************
@@ -1469,13 +1469,13 @@ export class OrgChart {
     // Zoom in exposed method
     zoomIn() {
         const { svg, zoomBehavior } = this.getChartState();
-        svg.transition().call(zoomBehavior.scaleBy, 1.0);   // 1.3
+        svg.transition().call(zoomBehavior.scaleBy, 1.3);   // 1.3
     }
 
     // Zoom out exposed method
     zoomOut() {
         const { svg, zoomBehavior } = this.getChartState();
-        svg.transition().call(zoomBehavior.scaleBy, 1.0);  // 0.78
+        svg.transition().call(zoomBehavior.scaleBy, 0.78);  // 0.78
     }
 
     toDataURL(url, callback) {
