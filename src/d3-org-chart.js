@@ -1469,13 +1469,13 @@ export class OrgChart {
     // Zoom in exposed method
     zoomIn() {
         const { svg, zoomBehavior } = this.getChartState();
-        svg.transition().call(zoomBehavior.scaleBy, 1.3);
+        svg.transition().call(zoomBehavior.scaleBy, 1.0);   // 1.3
     }
 
     // Zoom out exposed method
     zoomOut() {
         const { svg, zoomBehavior } = this.getChartState();
-        svg.transition().call(zoomBehavior.scaleBy, 0.78);
+        svg.transition().call(zoomBehavior.scaleBy, 1.0);  // 0.78
     }
 
     toDataURL(url, callback) {
