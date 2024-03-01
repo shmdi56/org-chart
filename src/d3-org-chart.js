@@ -423,9 +423,9 @@ export class OrgChart {
             .attr("font-family", attrs.defaultFont)
 
         // if (attrs.firstDraw) {
-            // svg.call(attrs.zoomBehavior)
+            svg.call(attrs.zoomBehavior)
             svg
-                .on("dblclick.zoom", null)
+                // .on("dblclick.zoom", null)
                 .on("wheel.zoom",null)
                 .attr("cursor", "move")
         // }
