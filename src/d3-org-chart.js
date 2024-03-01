@@ -353,6 +353,12 @@ export class OrgChart {
         return this;
     }
 
+    toggleZoom() {
+        const attrs = this.getChartState();
+        attrs.enableZooming = !attrs.enableZooming;
+        return this;
+    }
+
     render() {
         //InnerFunctions which will update visuals
         const attrs = this.getChartState();
