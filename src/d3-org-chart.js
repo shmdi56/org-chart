@@ -384,8 +384,8 @@ export class OrgChart {
             };
 
             // Get zooming function
-            // behaviors.zoom = d3.zoom().on("zoom", (event, d) => this.zoomed(event, d)).scaleExtent(attrs.scaleExtent)
-            // attrs.zoomBehavior = behaviors.zoom;
+            behaviors.zoom = d3.zoom().on("zoom", (event, d) => this.zoomed(event, d)).scaleExtent(attrs.scaleExtent)
+            attrs.zoomBehavior = behaviors.zoom;
         }
 
         //****************** ROOT node work ************************
@@ -422,13 +422,12 @@ export class OrgChart {
             .attr("height", attrs.svgHeight)
             .attr("font-family", attrs.defaultFont)
 
-        // if (attrs.firstDraw) {
+         if (attrs.firstDraw) {
             svg.call(attrs.zoomBehavior)
-            svg
                 // .on("dblclick.zoom", null)
                 .on("wheel.zoom",null)
                 .attr("cursor", "move")
-        // }
+        }
 
         attrs.svg = svg;
 
