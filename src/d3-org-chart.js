@@ -422,13 +422,13 @@ export class OrgChart {
             .attr("height", attrs.svgHeight)
             .attr("font-family", attrs.defaultFont)
 
-        if (attrs.firstDraw) {
+        // if (attrs.firstDraw) {
             // svg.call(attrs.zoomBehavior)
             svg
                 .on("dblclick.zoom", null)
                 .on("wheel.zoom",null)
                 .attr("cursor", "move")
-        }
+        // }
 
         attrs.svg = svg;
 
