@@ -432,7 +432,7 @@ export class OrgChart {
          if (attrs.firstDraw) {
             svg.call(attrs.zoomBehavior)
          }
-         if (attrs.enableZooming) {
+         if (!attrs.enableZooming) {
             svg.call(attrs.zoomBehavior)
                 .on("dblclick.zoom", null)
                 .on("wheel.zoom",null)
