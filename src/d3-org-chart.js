@@ -432,17 +432,10 @@ export class OrgChart {
          if (attrs.firstDraw) {
             svg.call(attrs.zoomBehavior)
                 .on("dblclick.zoom", null)
-                .on("wheel.zoom",null)
-                .attr("cursor", "move")
-         }
-         if (!attrs.enableZooming) {
-            svg.call(attrs.zoomBehavior)
-                .on("dblclick.zoom", null)
-                .on("wheel.zoom",null)
+                // .on("wheel.zoom",null)
                 .attr("cursor", "move")
          }
          
-
         attrs.svg = svg;
 
         //Add container g element
@@ -1342,6 +1335,7 @@ export class OrgChart {
 
     // Zoom handler function
     zoomed(event, d) {
+        if (d3.event.ctrlKey == false) return;
         const attrs = this.getChartState();
         const chart = attrs.chart;
 
