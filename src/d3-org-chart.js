@@ -1335,7 +1335,7 @@ export class OrgChart {
 
     // Zoom handler function
     zoomed(event, d) {
-        if (d3.event.ctrlKey == false) return;
+        if (event.SourceEvent.altKey == false) return;
         const attrs = this.getChartState();
         const chart = attrs.chart;
 
